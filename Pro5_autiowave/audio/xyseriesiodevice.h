@@ -47,7 +47,7 @@ class XYSeriesIODevice : public QIODevice
 public:
     explicit XYSeriesIODevice(QXYSeries *series, QObject *parent = nullptr);
 
-    static const int sampleCount = 2000;
+    static const int sampleCount = 20000;
 
 protected:
     qint64 readData(char *data, qint64 maxSize) override;
