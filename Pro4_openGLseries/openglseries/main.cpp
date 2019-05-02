@@ -49,6 +49,10 @@
 
 QT_CHARTS_USE_NAMESPACE
 
+//#define DONT_USE_GL_SERIES
+//#define ADD_SIMPLE_SERIES
+//#define USE_LOG_AXIS
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -71,7 +75,7 @@ int main(int argc, char *argv[])
 
     const int seriesCount = 10;
 #ifdef DONT_USE_GL_SERIES
-    const int pointCount = 100;
+    const int pointCount = 1000;
     chart->setTitle("Unaccelerated Series");
 #else
     const int pointCount = 10000;
