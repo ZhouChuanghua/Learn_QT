@@ -44,9 +44,16 @@ qint64 XYSeriesIODevice::readData(char *data, qint64 maxSize)
     return -1;
 }
 
+// 这个函数应该是在下面这个start执行后自动实时调用的
+/*    m_device = new XYSeriesIODevice(m_series, this);
+    m_device->open(QIODevice::WriteOnly);
+
+    m_audioInput->start(m_device);  */
 qint64 XYSeriesIODevice::writeData(const char *data, qint64 maxSize)
 {
     static const int resolution = 4;
+    static double xyz = 0;
+    xyz += 0.001;
 
     if (m_buffer.isEmpty()) {
         m_buffer.reserve(sampleCount);
@@ -64,6 +71,7 @@ qint64 XYSeriesIODevice::writeData(const char *data, qint64 maxSize)
 
     for (int s = start; s < sampleCount; ++s, data += resolution)
         m_buffer[s].setY(qreal(uchar(*data) -128) / qreal(128));
+//        m_buffer[s].setY(xyz);
 
     m_series->setUseOpenGL(true);
     m_series->replace(m_buffer);
