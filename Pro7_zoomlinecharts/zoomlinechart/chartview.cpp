@@ -29,16 +29,23 @@
 
 #include "chartview.h"
 #include <QtGui/QMouseEvent>
+#include "iostream"
+#include "QTextStream"
+#include "QDebug"
 
 ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
     m_isTouching(false)
 {
     setRubberBand(QChartView::RectangleRubberBand);
+    std::cout << "ChartView    ";
+
 }
 
 bool ChartView::viewportEvent(QEvent *event)
 {
+    std::cout << "viewportEvent      ";
+
     if (event->type() == QEvent::TouchBegin) {
         // By default touch events are converted to mouse events. So
         // after this event we will get a mouse event also but we want
@@ -55,6 +62,8 @@ bool ChartView::viewportEvent(QEvent *event)
 
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
+    std::cout << "mousePressEvent    ";
+
     if (m_isTouching)
         return;
     QChartView::mousePressEvent(event);
@@ -62,6 +71,8 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
 void ChartView::mouseMoveEvent(QMouseEvent *event)
 {
+    std::cout << "mouseMoveEvent    ";
+
     if (m_isTouching)
         return;
     QChartView::mouseMoveEvent(event);
@@ -69,12 +80,14 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
 
 void ChartView::mouseReleaseEvent(QMouseEvent *event)
 {
+    std::cout << "mouseReleaseEvent    ";
+
     if (m_isTouching)
         m_isTouching = false;
 
     // Because we disabled animations when touch event was detected
     // we must put them back on.
-    chart()->setAnimationOptions(QChart::SeriesAnimations);
+    chart()->setAnimationOptions(QChart::NoAnimation);
 
     QChartView::mouseReleaseEvent(event);
 }
@@ -82,8 +95,12 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
 //![1]
 void ChartView::keyPressEvent(QKeyEvent *event)
 {
+    const QRectF re = {2,2,2,2};
+    std::cout << "gesture333 ";
+
     switch (event->key()) {
     case Qt::Key_Plus:
+
         chart()->zoomIn();
         break;
     case Qt::Key_Minus:
@@ -106,4 +123,5 @@ void ChartView::keyPressEvent(QKeyEvent *event)
         QGraphicsView::keyPressEvent(event);
         break;
     }
+
 }

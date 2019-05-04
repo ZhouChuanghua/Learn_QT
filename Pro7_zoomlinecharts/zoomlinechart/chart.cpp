@@ -32,6 +32,10 @@
 #include <QtWidgets/QGraphicsScene>
 #include <QtWidgets/QGraphicsView>
 
+#include "iostream"
+#include "QTextStream"
+#include "QDebug"
+
 Chart::Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags)
     : QChart(QChart::ChartTypeCartesian, parent, wFlags)
 {
@@ -49,13 +53,19 @@ Chart::~Chart()
 //![1]
 bool Chart::sceneEvent(QEvent *event)
 {
+    std::cout << "sceneEvent"<<event->type()<<"    ";
+
     if (event->type() == QEvent::Gesture)
         return gestureEvent(static_cast<QGestureEvent *>(event));
+
+
     return QChart::event(event);
 }
 
 bool Chart::gestureEvent(QGestureEvent *event)
 {
+    std::cout << "gestureEvent   ";
+
     if (QGesture *gesture = event->gesture(Qt::PanGesture)) {
         QPanGesture *pan = static_cast<QPanGesture *>(gesture);
         QChart::scroll(-(pan->delta().x()), pan->delta().y());

@@ -36,6 +36,10 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 
+#include "iostream"
+#include "QTextStream"
+#include "QDebug"
+
 QT_CHARTS_USE_NAMESPACE
 
 int main(int argc, char *argv[])
@@ -54,12 +58,14 @@ int main(int argc, char *argv[])
     Chart *chart = new Chart();
     chart->addSeries(series);
     chart->setTitle("Zoom in/out example");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->hide();
+    chart->setAnimationOptions(QChart::NoAnimation);
+    chart->legend()->show();
     chart->createDefaultAxes();
 
     ChartView *chartView = new ChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
+
+    std::cout << "tet";
 
     QMainWindow window;
     window.setCentralWidget(chartView);
