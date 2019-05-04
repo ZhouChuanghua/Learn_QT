@@ -37,14 +37,15 @@ ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
     m_isTouching(false)
 {
-    setRubberBand(QChartView::RectangleRubberBand);
-    std::cout << "ChartView    ";
+    // 设置为horizon之后, 鼠标拉选只能横向放大缩小了. 但是+-还是对整个矩形区域进行放大和缩小.
+    setRubberBand(QChartView::HorizontalRubberBand);
+    std::cout << "ChartView\n";
 
 }
 
 bool ChartView::viewportEvent(QEvent *event)
 {
-    std::cout << "viewportEvent      ";
+    std::cout << "viewportEvent\n";
 
     if (event->type() == QEvent::TouchBegin) {
         // By default touch events are converted to mouse events. So
@@ -62,7 +63,7 @@ bool ChartView::viewportEvent(QEvent *event)
 
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
-    std::cout << "mousePressEvent    ";
+    std::cout << "mousePressEvent\n";
 
     if (m_isTouching)
         return;
@@ -71,7 +72,7 @@ void ChartView::mousePressEvent(QMouseEvent *event)
 
 void ChartView::mouseMoveEvent(QMouseEvent *event)
 {
-    std::cout << "mouseMoveEvent    ";
+    std::cout << "mouseMoveEvent \n";
 
     if (m_isTouching)
         return;
@@ -80,7 +81,7 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
 
 void ChartView::mouseReleaseEvent(QMouseEvent *event)
 {
-    std::cout << "mouseReleaseEvent    ";
+    std::cout << "mouseReleaseEvent\n";
 
     if (m_isTouching)
         m_isTouching = false;
@@ -96,7 +97,7 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
 void ChartView::keyPressEvent(QKeyEvent *event)
 {
     const QRectF re = {2,2,2,2};
-    std::cout << "gesture333 ";
+    std::cout << "gesture333 \n";
 
     switch (event->key()) {
     case Qt::Key_Plus:

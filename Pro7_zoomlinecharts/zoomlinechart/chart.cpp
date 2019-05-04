@@ -53,7 +53,7 @@ Chart::~Chart()
 //![1]
 bool Chart::sceneEvent(QEvent *event)
 {
-    std::cout << "sceneEvent"<<event->type()<<"    ";
+    std::cout << "sceneEvent"<<event->type()<<" \n";
 
     if (event->type() == QEvent::Gesture)
         return gestureEvent(static_cast<QGestureEvent *>(event));
@@ -64,7 +64,7 @@ bool Chart::sceneEvent(QEvent *event)
 
 bool Chart::gestureEvent(QGestureEvent *event)
 {
-    std::cout << "gestureEvent   ";
+    std::cout << "gestureEvent\n";
 
     if (QGesture *gesture = event->gesture(Qt::PanGesture)) {
         QPanGesture *pan = static_cast<QPanGesture *>(gesture);
@@ -79,4 +79,8 @@ bool Chart::gestureEvent(QGestureEvent *event)
 
     return true;
 }
+
+
+
+
 //![1]

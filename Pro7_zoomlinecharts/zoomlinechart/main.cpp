@@ -35,6 +35,7 @@
 #include <QtCore/QRandomGenerator>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
+#include "mainwindow.h"
 
 #include "iostream"
 #include "QTextStream"
@@ -53,12 +54,21 @@ int main(int argc, char *argv[])
         p.ry() += QRandomGenerator::global()->bounded(20);
         *series << p;
     }
+    QLineSeries *series2 = new QLineSeries();
+    for (int i = 0; i < 500; i++) {
+        QPointF p((qreal) i, qSin(M_PI / 100 * i) * 100);
+        p.ry() += QRandomGenerator::global()->bounded(20);
+        *series2 << p;
+    }
 //![1]
 
     Chart *chart = new Chart();
+    series->setName("series1");
     chart->addSeries(series);
+    chart->addSeries(series2);
     chart->setTitle("Zoom in/out example");
     chart->setAnimationOptions(QChart::NoAnimation);
+    chart->legend()->setAlignment(Qt::AlignLeft);
     chart->legend()->show();
     chart->createDefaultAxes();
 
@@ -69,10 +79,15 @@ int main(int argc, char *argv[])
 
     QMainWindow window;
     window.setCentralWidget(chartView);
-    window.resize(400, 300);
+    window.resize(900, 700);
     window.grabGesture(Qt::PanGesture);
     window.grabGesture(Qt::PinchGesture);
     window.show();
 
+    MainWindow window2;
+    window2.resize(900, 700);
+    window2.grabGesture(Qt::PanGesture);
+    window2.grabGesture(Qt::PinchGesture);
+    window2.show();
     return a.exec();
 }
