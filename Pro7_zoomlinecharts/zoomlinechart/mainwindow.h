@@ -13,6 +13,10 @@
 #include <QtCharts/QLineSeries>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
+#include "chart.h"
+#include "chartview.h"
+
+QT_CHARTS_USE_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +24,26 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
+
+
+public slots:
+    void addSeries();
+    void removeSeries();
+    void connectMarkers();
+    void disconnectMarkers();
+
+    void handleMarkerClicked();
+
+private:
+
+    Chart *m_chart;
+    QList<QLineSeries *> m_series;
+
+    ChartView *m_chartView;
+    QGridLayout *m_mainLayout;
+    QGridLayout *m_fontLayout;
+
+
 };
 
 #endif // MAINWIDGET_H

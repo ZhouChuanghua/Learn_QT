@@ -27,19 +27,19 @@
 **
 ****************************************************************************/
 
-#include "chart.h"
-#include "chartview.h"
+//#include "chart.h"
+//#include "chartview.h"
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
-#include <QtCore/QtMath>
-#include <QtCore/QRandomGenerator>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QValueAxis>
+//#include <QtWidgets/QMainWindow>
+//#include <QtCore/QtMath>
+//#include <QtCore/QRandomGenerator>
+//#include <QtCharts/QLineSeries>
+//#include <QtCharts/QValueAxis>
 #include "mainwindow.h"
 
-#include "iostream"
-#include "QTextStream"
-#include "QDebug"
+//#include "iostream"
+//#include "QTextStream"
+//#include "QDebug"
 
 QT_CHARTS_USE_NAMESPACE
 
