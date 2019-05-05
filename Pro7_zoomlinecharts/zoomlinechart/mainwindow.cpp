@@ -40,7 +40,9 @@ MainWindow::MainWindow()
 
     Chart *chart = new Chart();
     series->setName("series1");
+    series->setUseOpenGL(true);
     chart->addSeries(series);
+    series2->setUseOpenGL(true);
     chart->addSeries(series2);
     chart->setTitle("Zoom in/out example");
     chart->setAnimationOptions(QChart::NoAnimation);
@@ -56,9 +58,4 @@ MainWindow::MainWindow()
 
 }
 
-//MainWidow::MainWidow(QMainWindow *parent) :
-//    QMainWindow(parent)
-//{
-
-//}
 
