@@ -97,8 +97,8 @@ void MainWindow::addSeries()
     int offset = m_chart->series().count();
     for (int i = 0; i < 360; i++) {
         qreal x = offset * 20 + i;
-        qreal xd = QRandomGenerator::global()->bounded(20);
-        data.append(QPointF(i, qSin(qDegreesToRadians(x))));
+        qreal xd = QRandomGenerator::global()->bounded(5);
+        data.append(QPointF(i, qSin(qDegreesToRadians(x)) + xd ));
     }
 
     series->append(data);
