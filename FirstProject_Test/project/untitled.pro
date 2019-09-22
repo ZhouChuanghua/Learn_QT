@@ -17,6 +17,15 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+
+LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lControlCAN
+
+# CONFIG += console
+
+# win32:QMAKE_LFLAGS += -shared
+# CONFIG += shared
+
+
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -32,7 +41,11 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     chart.h \
-    chartview.h
+    chartview.h \
+    ControlCAN.h
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES += \
+    ControlCAN.LIB
