@@ -19,6 +19,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lControlCAN
+# LIBS += -LC:\Users\zhwsd\Desktop\work\Learn_QT\FirstProject_Test\project -lControlCAN
+
+# LIBS += ControlCAN.LIB
 
 # CONFIG += console
 
@@ -34,14 +37,10 @@ LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lCont
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    chart.cpp \
-    chartview.cpp
+        mainwindow.cpp
 
 HEADERS += \
         mainwindow.h \
-    chart.h \
-    chartview.h \
     ControlCAN.h
 
 FORMS += \

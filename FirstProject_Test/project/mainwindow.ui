@@ -190,6 +190,20 @@
           </property>
          </widget>
         </item>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="pb_addchart">
+          <property name="text">
+           <string>pb_addchart</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QPushButton" name="pb_addchart2">
+          <property name="text">
+           <string>pb_addchart2</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -198,7 +212,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayou_tab2">
         <item row="0" column="0">
-         <widget class="QGraphicsView" name="graphicsView"/>
+         <layout class="QGridLayout" name="grid_tab2"/>
         </item>
        </layout>
       </widget>

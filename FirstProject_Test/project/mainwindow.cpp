@@ -3,13 +3,42 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts>
-#include "chart.h"
-#include "chartview.h"
+//#include "chart.h"
+//#include "chartview.h"
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QtMath>
 #include <QtCharts/QValueAxis>
 
 #include <iostream>
+
+
+
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QAbstractBarSeries>
+#include <QtCharts/QPercentBarSeries>
+#include <QtCharts/QStackedBarSeries>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QScatterSeries>
+#include <QtCharts/QAreaSeries>
+#include <QtCharts/QLegend>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtCore/QRandomGenerator>
+#include <QtCharts/QBarCategoryAxis>
+#include <QtWidgets/QApplication>
+#include <QtCharts/QValueAxis>
+
+
 
 #include "ControlCAN.H"
 #pragma comment(lib,"controlcan.lib")
@@ -23,6 +52,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    chartView = new QChartView();
+    ui->grid_tab2->addWidget(chartView, 1, 0);
+
+    QChart *chart = new QChart();
+    chartView->setChart(chart);
+
+    series0 = new QLineSeries();
+    series1 = new QLineSeries();
+    chart->addSeries(series0);
+    chart->addSeries(series1);
 
     // connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
 
@@ -175,4 +215,39 @@ void MainWindow::on_pb_closecan_clicked()
     std::cout<<(status)<<std::endl;
     ui->label_canopen->setText("Can Closed");
 
+}
+
+void MainWindow::on_pb_addchart_clicked()
+{
+   // ui->gv_plot->
+   // QChartView
+
+
+
+    qreal t = 0, y1, y2, intv = 0.1;
+    int cnt = 100;
+    for(int i = 0; i < cnt; i++)
+    {
+        y1 = qSin(t);
+        series0->append(t, y1);
+        y2 = qSin(t + 20);
+        series1->append(t, y2);
+        t += intv;
+    }
+
+
+}
+
+void MainWindow::on_pb_addchart2_clicked()
+{
+    qreal t = 0, y1, y2, intv = 0.1;
+    int cnt = 200;
+    for(int i = 0; i < cnt; i++)
+    {
+        y1 = qSin(t+30);
+        series0->append(t, y1);
+        y2 = qSin(t + 60);
+        series1->append(t, y2);
+        t += intv;
+    }
 }
