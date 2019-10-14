@@ -53,16 +53,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
-    chartView = new QChartView();
-    ui->grid_tab2->addWidget(chartView, 1, 0);
+    //chartView = new QChartView();
+    //ui->grid_tab2->addWidget(chartView, 1, 0);
 
-    QChart *chart = new QChart();
-    chartView->setChart(chart);
+    chart = new QChart();
+    //chartView->setChart(chart);
+
+    ui->gv_tab3->setChart(chart);
 
     series0 = new QLineSeries();
     series1 = new QLineSeries();
     chart->addSeries(series0);
     chart->addSeries(series1);
+
+
 
     // connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
 
@@ -219,26 +223,15 @@ void MainWindow::on_pb_closecan_clicked()
 
 void MainWindow::on_pb_addchart_clicked()
 {
-   // ui->gv_plot->
-   // QChartView
-
-
-
-    qreal t = 0, y1, y2, intv = 0.1;
-    int cnt = 100;
-    for(int i = 0; i < cnt; i++)
-    {
-        y1 = qSin(t);
-        series0->append(t, y1);
-        y2 = qSin(t + 20);
-        series1->append(t, y2);
-        t += intv;
-    }
-
 
 }
 
 void MainWindow::on_pb_addchart2_clicked()
+{
+
+}
+
+void MainWindow::on_pb_tab3_1_clicked()
 {
     qreal t = 0, y1, y2, intv = 0.1;
     int cnt = 200;
@@ -250,4 +243,78 @@ void MainWindow::on_pb_addchart2_clicked()
         series1->append(t, y2);
         t += intv;
     }
+
+    //创建坐标轴
+        QValueAxis *axisX = new QValueAxis; //X 轴
+        axisX->setRange(0, 10); //设置坐标轴范围
+    //    axisX->setLabelFormat("%.1f"); //标签格式
+    //    axisX->setTickCount(11); //主分隔个数
+    //    axisX->setMinorTickCount(4);
+        axisX->setTitleText("time(secs)"); //标题
+    //    axisX->setGridLineVisible(false);
+
+        QValueAxis *axisY = new QValueAxis; //Y 轴
+        axisY->setRange(-2, 2);
+        axisY->setTitleText("value");
+    //    axisY->setTickCount(5);
+    //    axisY->setMinorTickCount(4);
+    //    axisY->setLabelFormat("%.2f"); //标签格式
+    //    axisY->setGridLineVisible(false);
+
+        chart->setAxisX(axisX, series0); //为序列设置坐标轴
+        chart->setAxisY(axisY, series0); //
+
+        chart->setAxisX(axisX, series1); //为序列设置坐标轴
+        chart->setAxisY(axisY, series1); //
+
+        foreach (QLegendMarker* marker, chart->legend()->markers()) {
+            QObject::disconnect(marker, SIGNAL(clicked()), this, SLOT(on_LegendMarkerClicked()));
+            QObject::connect(marker, SIGNAL(clicked()), this, SLOT(on_LegendMarkerClicked()));
+        }
+
+
+
+}
+
+
+
+void MainWindow::on_LegendMarkerClicked()
+{
+    QLegendMarker* marker = qobject_cast<QLegendMarker*> (sender());
+
+    switch (marker->type())
+    {
+        case QLegendMarker::LegendMarkerTypeXY:
+        {
+            marker->series()->setVisible(!marker->series()->isVisible());
+            marker->setVisible(true);
+            qreal alpha = 1.0;
+            if (!marker->series()->isVisible())
+                alpha = 0.5;
+
+            QColor color;
+            QBrush brush = marker->labelBrush();
+            color = brush.color();
+            color.setAlphaF(alpha);
+            brush.setColor(color);
+            marker->setLabelBrush(brush);
+
+            brush = marker->brush();
+            color = brush.color();
+            color.setAlphaF(alpha);
+            brush.setColor(color);
+            marker->setBrush(brush);
+
+            QPen pen = marker->pen();
+            color = pen.color();
+            color.setAlphaF(alpha);
+            pen.setColor(color);
+            marker->setPen(pen);
+            break;
+        }
+        default:
+            break;
+    }
+
+
 }

@@ -40,7 +40,7 @@
    </size>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_central">
+   <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
@@ -65,7 +65,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <property name="sizePolicy">
@@ -216,6 +216,30 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>tab3</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pb_tab3_1">
+          <property name="text">
+           <string>pb_tab3_1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pb_tab3_2">
+          <property name="text">
+           <string>pb_tab3_2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2" rowspan="3">
+         <widget class="QChartView" name="gv_tab3"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -279,6 +303,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qchartview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

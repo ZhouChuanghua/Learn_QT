@@ -67,6 +67,9 @@ private slots:
     void on_pb_closecan_clicked();
     void on_pb_addchart_clicked();
     void on_pb_addchart2_clicked();
+    void on_pb_tab3_1_clicked();
+
+    void on_LegendMarkerClicked(); //图例单击
 };
 
 #endif // MAINWINDOW_H
