@@ -63,9 +63,18 @@ MainWindow::MainWindow(QWidget *parent) :
     //chartView->setChart(chart);
 
     ui->gv_tab3->setChart(chart);
+    // Set the title and show legend
+    chart->setTitle("Legendmarker example (click on legend)");
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignLeft);
+
+    ui->gv_tab3->setRenderHint(QPainter::Antialiasing);
+
 
     series0 = new QLineSeries();
+    series0->setUseOpenGL(true);
     series1 = new QLineSeries();
+    series1->setUseOpenGL(true);
     chart->addSeries(series0);
     chart->addSeries(series1);
 
