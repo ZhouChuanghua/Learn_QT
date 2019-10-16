@@ -58,6 +58,8 @@ public:
     QLineSeries *series1;
 
 
+    QLabel  *labXYValue; //状态栏显示文字标签
+
 private slots:
     void on_pushButton_clicked();
 
@@ -70,6 +72,16 @@ private slots:
     void on_pb_tab3_1_clicked();
 
     void on_LegendMarkerClicked(); //图例单击
+
+    void on_mouseMovePoint(QPoint point); //鼠标移动事件，自定义槽函数
+
+    void on_actZoomReset_triggered(); //工具栏按钮，原始大小
+
+    void on_actZoomIn_triggered(); //工具栏按钮，放大
+
+    void on_actZoomOut_triggered(); //工具栏按钮，缩小
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -37,11 +37,13 @@ LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lCont
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        qwchartview.cpp
 
 HEADERS += \
         mainwindow.h \
-    ControlCAN.h
+    ControlCAN.h \
+    qwchartview.h
 
 FORMS += \
         mainwindow.ui

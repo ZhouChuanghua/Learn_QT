@@ -38,6 +38,9 @@
 #include <QtWidgets/QApplication>
 #include <QtCharts/QValueAxis>
 
+#include    "qwchartview.h"
+
+
 
 
 #include "ControlCAN.H"
@@ -318,3 +321,30 @@ void MainWindow::on_LegendMarkerClicked()
 
 
 }
+
+
+
+
+void MainWindow::on_mouseMovePoint(QPoint point)
+{ //鼠标移动响应
+    QPointF pt=ui->gv_tab3->chart()->mapToValue(point); //转换为图表的数值
+    labXYValue->setText(QString::asprintf("X=%.1f,Y=%.2f",pt.x(),pt.y())); //状态栏显示
+}
+
+void MainWindow::on_actZoomReset_triggered()
+{ //恢复原始大小
+    ui->gv_tab3->chart()->zoomReset();
+}
+
+void MainWindow::on_actZoomIn_triggered()
+{//放大
+    ui->gv_tab3->chart()->zoom(1.2);
+}
+
+void MainWindow::on_actZoomOut_triggered()
+{//缩小
+    ui->gv_tab3->chart()->zoom(0.8);
+}
+
+
+
