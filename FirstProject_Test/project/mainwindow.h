@@ -60,6 +60,11 @@ public:
 
     QLabel  *labXYValue; //状态栏显示文字标签
 
+    bool    openTextByStream(const QString& aFileName);
+
+    bool    openTextDATA_ByStream(const QString &aFileName);
+
+
 private slots:
     void on_pushButton_clicked();
 
@@ -82,6 +87,9 @@ private slots:
     void on_actZoomOut_triggered(); //工具栏按钮，缩小
 
 
+    void on_actOpen_TextStream_triggered();
+
+    void on_pb_cv_clicked();
 };
 
 #endif // MAINWINDOW_H

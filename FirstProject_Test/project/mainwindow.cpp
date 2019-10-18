@@ -78,7 +78,14 @@ MainWindow::MainWindow(QWidget *parent) :
     chart->addSeries(series0);
     chart->addSeries(series1);
 
+    QLineSeries *series100[100];
+    for(int i = 0; i < 100; i++)
+    {
+        series100[i] = new QLineSeries();
+        //series100[i] = ;
+        chart->addSeries(series100[i]);
 
+    }
 
     // connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
 
@@ -356,4 +363,125 @@ void MainWindow::on_actZoomOut_triggered()
 }
 
 
+bool MainWindow::openTextByStream(const QString &aFileName)
+{
+    //用 QTextStream打开文本文件
+    QFile   aFile(aFileName);
 
+    if (!aFile.exists()) //文件不存在
+        return false;
+
+    if (!aFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream aStream(&aFile); //用文本流读取文件
+    aStream.setAutoDetectUnicode(true); //自动检测Unicode,才能正常显示文档内的汉字
+
+
+
+    QString read_data = aStream.readAll();
+    //QString read_data = aStream.readLine();
+    ui->textEditStream->setPlainText(read_data);
+
+    QStringList tempOption = read_data.split("\n");         //每行以\n区分
+
+    // 允许config最大行数为5000行. 做config的时候注意这里.
+    QStringList tempbar[5000];
+
+    for(int i = 0 ; i < tempOption.count() ; i++)
+    {
+         tempbar[i] = tempOption.at(i).split(","); //一行中的单元格以，区分
+    }
+
+//    ui->textEditStream->clear();//清空
+//    while (!aStream.atEnd())
+//    {
+//        str=aStream.readLine();//读取文件的一行
+//        ui->textEditStream->appendPlainText(str); //添加到文本框显示
+//    }
+
+    aFile.close();//关闭文件
+    ui->tabWidget->setCurrentIndex(1);
+    return  true;
+}
+
+
+
+void MainWindow::on_actOpen_TextStream_triggered()
+{ //打开文件
+    QString curPath=QDir::currentPath();//获取系统当前目录
+    //调用打开文件对话框打开一个文件
+    QString aFileName=QFileDialog::getOpenFileName(this,"打开一个文件",curPath,
+                 "程序文件(*.h *cpp *txt *csv);;文本文件(*.txt);;所有文件(*.*)");
+
+    if (aFileName.isEmpty())
+        return; //如果未选择文件，退出
+    openTextByStream(aFileName); //打开文件
+
+}
+
+
+
+bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
+{
+    //用 QTextStream打开文本文件
+    QFile   aFile(aFileName);
+
+    if (!aFile.exists()) //文件不存在
+        return false;
+
+    if (!aFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream aStream(&aFile); //用文本流读取文件
+    aStream.setAutoDetectUnicode(true); //自动检测Unicode,才能正常显示文档内的汉字
+
+
+
+    QString read_data = aStream.readAll();
+    //QString read_data = aStream.readLine();
+    ui->textEditStream->setPlainText(read_data);
+
+    QStringList tempOption = read_data.split("\n");         //每行以\n区分
+
+    // 允许config最大行数为5000行. 做config的时候注意这里.
+    QStringList tempbar[5000];
+    int datacount = tempOption.count();
+    for(int i = 0 ; i < tempOption.count() ; i++)
+    {
+         tempbar[i] = tempOption.at(i).split("\t"); //一行中的单元格以，区分
+    }
+
+    QString  str = "f8";
+
+    int value = str.toInt(NULL, 16);
+
+    qDebug()<<value;
+
+
+//    ui->textEditStream->clear();//清空
+//    while (!aStream.atEnd())
+//    {
+//        str=aStream.readLine();//读取文件的一行
+//        ui->textEditStream->appendPlainText(str); //添加到文本框显示
+//    }
+
+    aFile.close();//关闭文件
+    ui->tabWidget->setCurrentIndex(1);
+    return  true;
+}
+
+
+void MainWindow::on_pb_cv_clicked()
+{
+    //打开文件
+    QString curPath=QDir::currentPath();//获取系统当前目录
+    //调用打开文件对话框打开一个文件
+    QString aFileName=QFileDialog::getOpenFileName(this,"打开一个文件",curPath,
+                 "程序文件(*.h *cpp *txt *csv);;文本文件(*.txt);;所有文件(*.*)");
+
+    if (aFileName.isEmpty())
+        return; //如果未选择文件，退出
+    openTextDATA_ByStream(aFileName); //打开文件
+
+}
