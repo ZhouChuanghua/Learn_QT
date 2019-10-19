@@ -80,18 +80,16 @@ MainWindow::MainWindow(QWidget *parent) :
     chart->addSeries(series1);
 
 
-    series2 = new QLineSeries();
-    series2->setUseOpenGL(true);
-    chart->addSeries(series2);
 
-    QLineSeries *series100[100];
-    for(int i = 0; i < 100; i++)
-    {
-        series100[i] = new QLineSeries();
-        //series100[i] = ;
-        chart->addSeries(series100[i]);
 
-    }
+//    QLineSeries *series100[100];
+//    for(int i = 0; i < 100; i++)
+//    {
+//        series100[i] = new QLineSeries();
+//        //series100[i] = ;
+//        chart->addSeries(series100[i]);
+
+//    }
 
     // connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
 
@@ -467,7 +465,7 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
 
         value[i] = str.toInt(NULL, 16);
 
-        // qDebug()<<str;
+         qDebug()<<str;
         // qDebug()<<value[i];
     }
 
@@ -481,7 +479,7 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
     aFile.close();//关闭文件
     ui->tabWidget->setCurrentIndex(1);
 
-
+    series2 = new QLineSeries();
     qreal t = 0, y1, intv = 0.1;
     for(int i = 0; i < datacount; i++)
     {
@@ -490,6 +488,9 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
         t += intv;
     }
 
+
+    series2->setUseOpenGL(true);
+    chart->addSeries(series2);
 
     return  true;
 }

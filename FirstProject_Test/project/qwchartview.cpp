@@ -1,7 +1,7 @@
 ﻿#include "qwchartview.h"
 
 #include    <QChartView>
-
+#include <QtDebug>
 
 void QWChartView::mousePressEvent(QMouseEvent *event)
 {//鼠标左键按下，记录beginPoint
@@ -30,7 +30,7 @@ void QWChartView::mouseReleaseEvent(QMouseEvent *event)
         this->chart()->zoomIn(rectF);
     }
     else if (event->button()==Qt::RightButton)
-        this->chart()->zoomReset(); //鼠标右键释放，resetZoom
+        //this->chart()->zoomReset(); //鼠标右键释放，resetZoom
     QChartView::mouseReleaseEvent(event);
 }
 
@@ -83,4 +83,49 @@ QWChartView::QWChartView(QWidget *parent):QChartView(parent)
 QWChartView::~QWChartView()
 {
 
+}
+
+
+void QWChartView::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    assert(event);  // 从pulseview copy, unknown why
+    if (event->button()==Qt::LeftButton)
+    {
+        chart()->zoomReset();
+    }
+    else if(event->button()==Qt::RightButton)
+    {
+        // 设置为纵向reset, 横向不变
+    }
+//    if (event->buttons() & Qt::LeftButton)
+//        chart()->zoom(2.0);
+//    else if (event->buttons() & Qt::RightButton)
+//        chart()->zoom(-2.0);
+}
+
+
+void QWChartView::wheelEvent(QWheelEvent *event)
+{
+    assert(event);
+    //chart()->zoomReset();
+    qDebug()<<event->delta();
+
+    if (event->orientation() == Qt::Vertical) {
+        if (event->modifiers() & Qt::ControlModifier) {
+            // Vertical scrolling with the control key pressed
+            // is intrepretted as vertical scrolling
+            //chart()->set_v_offset(-chart()->owner_visual_v_offset() -
+            //   (event->delta() * height()) / (8 * 120));
+            chart()->zoomReset();
+        } else {
+            // Vertical scrolling is interpreted as zooming in/out
+            //chart()->zoom(2.0);
+            chart()->zoom(1 + 0.2*(event->delta() / abs(event->delta())));
+        }
+    } else if (event->orientation() == Qt::Horizontal) {
+        // Horizontal scrolling is interpreted as moving left/right
+        //chart()->set_scale_offset(chart()->scale(),
+        //    event->delta() * chart()->scale() + chart()->offset());
+        chart()->zoomReset();
+    }
 }

@@ -20,6 +20,12 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event); //鼠标释放左键
     void keyPressEvent(QKeyEvent *event); //按键事件
 
+    void mouseDoubleClickEvent(QMouseEvent *event);
+
+
+    void wheelEvent(QWheelEvent *event);
+
+
 public:
     explicit QWChartView(QWidget *parent = 0);
     ~QWChartView();
