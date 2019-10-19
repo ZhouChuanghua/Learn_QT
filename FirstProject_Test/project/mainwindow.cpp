@@ -75,8 +75,14 @@ MainWindow::MainWindow(QWidget *parent) :
     series0->setUseOpenGL(true);
     series1 = new QLineSeries();
     series1->setUseOpenGL(true);
+
     chart->addSeries(series0);
     chart->addSeries(series1);
+
+
+    series2 = new QLineSeries();
+    series2->setUseOpenGL(true);
+    chart->addSeries(series2);
 
     QLineSeries *series100[100];
     for(int i = 0; i < 100; i++)
@@ -444,25 +450,25 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
 
     QStringList tempOption = read_data.split("\n");         //每行以\n区分
 
-    // 允许config最大行数为5000行. 做config的时候注意这里.
-    QStringList tempbar[5000];
-    QString dstr[5000];
-    int datacount = tempOption.count();
+    // 允许data最大行数为50000行.
+    QStringList tempbar[50000];
+    QString dstr[50000];
+    int datacount = tempOption.count() - 1;
     for(int i = 1 ; i < datacount; i++)
     {
         tempbar[i] = tempOption.at(i).split("\t"); //一行中的单元格以，区分
         dstr[i] = tempbar[i].at(2);
     }
 
-    int value[5000];
+    int value[50000];
     for(int i = 1 ; i < datacount; i++)
     {
         QString  str = dstr[i].mid(65, 2) + dstr[i].mid(62, 2);//[62] + dstr[11][63];//tempbar[41][2].at(66);
 
         value[i] = str.toInt(NULL, 16);
 
-        qDebug()<<str;
-        qDebug()<<value[i];
+        // qDebug()<<str;
+        // qDebug()<<value[i];
     }
 
 //    ui->textEditStream->clear();//清空
@@ -474,6 +480,17 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
 
     aFile.close();//关闭文件
     ui->tabWidget->setCurrentIndex(1);
+
+
+    qreal t = 0, y1, intv = 0.1;
+    for(int i = 0; i < datacount; i++)
+    {
+        y1 = value[i];
+        series2->append(t, y1);
+        t += intv;
+    }
+
+
     return  true;
 }
 

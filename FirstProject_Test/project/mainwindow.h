@@ -56,7 +56,7 @@ public:
     QChart *chart;
     QLineSeries *series0;
     QLineSeries *series1;
-
+    QLineSeries *series2;
 
     QLabel  *labXYValue; //状态栏显示文字标签
 
