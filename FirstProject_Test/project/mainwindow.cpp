@@ -446,18 +446,24 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
 
     // 允许config最大行数为5000行. 做config的时候注意这里.
     QStringList tempbar[5000];
+    QString dstr[5000];
     int datacount = tempOption.count();
-    for(int i = 0 ; i < tempOption.count() ; i++)
+    for(int i = 1 ; i < datacount; i++)
     {
-         tempbar[i] = tempOption.at(i).split("\t"); //一行中的单元格以，区分
+        tempbar[i] = tempOption.at(i).split("\t"); //一行中的单元格以，区分
+        dstr[i] = tempbar[i].at(2);
     }
 
-    QString  str = "f8";
+    int value[5000];
+    for(int i = 1 ; i < datacount; i++)
+    {
+        QString  str = dstr[i].mid(65, 2) + dstr[i].mid(62, 2);//[62] + dstr[11][63];//tempbar[41][2].at(66);
 
-    int value = str.toInt(NULL, 16);
+        value[i] = str.toInt(NULL, 16);
 
-    qDebug()<<value;
-
+        qDebug()<<str;
+        qDebug()<<value[i];
+    }
 
 //    ui->textEditStream->clear();//清空
 //    while (!aStream.atEnd())
