@@ -50,15 +50,15 @@ int main(int argc, char *argv[])
 
     MainWindow window;
     window.resize(900, 700);
-    window.grabGesture(Qt::PanGesture);
-    window.grabGesture(Qt::PinchGesture);
+    //window.grabGesture(Qt::PanGesture);
+    //window.grabGesture(Qt::PinchGesture);
     window.show();
 
     // window2
     MainWindow window2;
     window2.resize(800, 600);
-    window2.grabGesture(Qt::PanGesture);
-    window2.grabGesture(Qt::PinchGesture);
+    //window2.grabGesture(Qt::PanGesture);
+    //window2.grabGesture(Qt::PinchGesture);
     window2.show();
 
 
