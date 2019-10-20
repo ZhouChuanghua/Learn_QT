@@ -61,12 +61,12 @@ Chart::Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags)
     m_series->setPen(green);
     m_series->append(m_x, m_y);
 
-    addSeries(m_series);
-    createDefaultAxes();
-    setAxisX(m_axis, m_series);
-    m_axis->setTickCount(5);
-    axisX()->setRange(0, 10);
-    axisY()->setRange(-5, 10);
+//    addSeries(m_series);
+//    createDefaultAxes();
+//    setAxisX(m_axis, m_series);
+//    m_axis->setTickCount(5);
+//    axisX()->setRange(0, 10);
+//    axisY()->setRange(-5, 10);
 
     m_timer.start();
 }
@@ -81,6 +81,8 @@ bool Chart::sceneEvent(QEvent *event)
 {
     if (event->type() == QEvent::Gesture)
         return gestureEvent(static_cast<QGestureEvent *>(event));
+
+    qDebug()<<"sceneEvent";
     return QChart::event(event);
 }
 
@@ -95,7 +97,10 @@ bool Chart::gestureEvent(QGestureEvent *event)
         QPinchGesture *pinch = static_cast<QPinchGesture *>(gesture);
         if (pinch->changeFlags() & QPinchGesture::ScaleFactorChanged)
             QChart::zoom(pinch->scaleFactor());
+
+        qDebug()<<pinch->scaleFactor();
     }
+    qDebug()<<"gesture";
 
     return true;
 }
@@ -109,8 +114,8 @@ void Chart::handleTimeout()
     qreal y = (m_axis->max() - m_axis->min()) / m_axis->tickCount();
     m_x += y;
     m_y = qrand() % 5 - 2.5;
-    m_series->append(m_x, m_y);
-    scroll(x, 0);
+    // m_series->append(m_x, m_y);
+    //scroll(x, 0);
     if (m_x == 100)
         m_timer.stop();
 }

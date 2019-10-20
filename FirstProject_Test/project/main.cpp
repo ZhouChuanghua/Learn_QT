@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
 
 
     MainWindow w;
-    w.grabGesture(Qt::PanGesture);
-    w.grabGesture(Qt::PinchGesture);
+    //w.grabGesture(Qt::PanGesture);
+    //w.grabGesture(Qt::PinchGesture);
 
 
     w.show();

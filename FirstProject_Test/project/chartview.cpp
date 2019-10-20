@@ -29,6 +29,9 @@
 
 #include "chartview.h"
 #include <QtGui/QMouseEvent>
+#include "iostream"
+#include "QTextStream"
+#include "QDebug"
 
 ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
@@ -36,6 +39,8 @@ ChartView::ChartView(QChart *chart, QWidget *parent) :
 {
     //setRubberBand(QChartView::RectangleRubberBand);
     setRubberBand(QChartView::HorizontalRubberBand);
+    this->setMouseTracking(true);//必须开启此功能
+
 }
 
 bool ChartView::viewportEvent(QEvent *event)
@@ -44,7 +49,7 @@ bool ChartView::viewportEvent(QEvent *event)
         // By default touch events are converted to mouse events. So
         // after this event we will get a mouse event also but we want
         // to handle touch events as gestures only. So we need this safeguard
-        // to block mouse events that are actually generated from touch.
+        // to block mouse events that are actually00 generated from touch.
         m_isTouching = true;
 
         // Turn off animations when handling gestures they

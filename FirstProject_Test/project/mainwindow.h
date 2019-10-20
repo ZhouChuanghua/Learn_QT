@@ -67,8 +67,8 @@ public:
     bool    openTextDATA_ByStream(const QString &aFileName);
 
     Chart *m_chart;
-    //QList<QLineSeries *> m_series;
-    QLineSeries *m_series;
+    QList<QLineSeries *> m_series;
+    //QLineSeries *m_series;
 
     ChartView *m_chartView;
 
@@ -97,6 +97,14 @@ private slots:
     void on_actOpen_TextStream_triggered();
 
     void on_pb_cv_clicked();
+	
+	void addSeries();
+    void removeSeries();
+    void connectMarkers();
+    void disconnectMarkers();
+
+    void handleMarkerClicked();
+	
 };
 
 #endif // MAINWINDOW_H
