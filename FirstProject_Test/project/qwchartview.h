@@ -15,6 +15,11 @@ private:
     QPoint  endPoint;  //选择矩形区的终点
     int pressflg;       // 避免点击到lineseries上面之后, 无法产生chart::press事件, 造成缩放错误.
 
+    bool isClicking;
+
+    int xOld;
+    int yOld;
+
 protected:
 
 

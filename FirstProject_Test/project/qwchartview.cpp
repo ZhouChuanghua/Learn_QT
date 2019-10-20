@@ -3,12 +3,38 @@
 #include    <QChartView>
 #include <QtDebug>
 
+
+QWChartView::QWChartView(QWidget *parent):QChartView(parent)
+{
+    this->setDragMode(QGraphicsView::RubberBandDrag);
+//    this->setRubberBand(QChartView::RectangleRubberBand);//设置为矩形选择方式
+//    this->setRubberBand(QChartView::VerticalRubberBand);
+    //this->setRubberBand(QChartView::HorizontalRubberBand);
+
+    this->setMouseTracking(true);//必须开启此功能
+    pressflg = 0;
+
+    qDebug()<<"6";
+}
+
+QWChartView::~QWChartView()
+{
+
+}
+
+
+
 void QWChartView::mousePressEvent(QMouseEvent *event)
 {//鼠标左键按下，记录beginPoint
     if (event->button()==Qt::LeftButton)
     {
         beginPoint=event->pos();
         pressflg = 1;
+    }
+    else if(event->button()==Qt::RightButton)
+    {
+        this->setDragMode(QGraphicsView::ScrollHandDrag);
+        isClicking = true;
     }
 
     qDebug()<<"1";
@@ -20,14 +46,37 @@ void QWChartView::mouseMoveEvent(QMouseEvent *event)
     QPoint  point;
     point=event->pos();
 
+    int x, y;
+
+    if (isClicking) {
+        if (xOld == 0 && yOld == 0) {
+
+        } else {
+            x = event->x() - xOld;
+            y = event->y() - yOld;
+            chart()->scroll(-x, y);
+        }
+
+        xOld = event->x();
+        yOld = event->y();
+
+        return;
+    }
     qDebug()<<"2";
 
     emit mouseMovePoint(point);
     QChartView::mouseMoveEvent(event);
 }
 
+
 void QWChartView::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (isClicking) {
+        xOld = yOld = 0;
+        isClicking = false;
+    }
+
+    this->setDragMode(QGraphicsView::RubberBandDrag);
     if (event->button()==Qt::LeftButton)
     { //鼠标左键释放，获取矩形框的endPoint,进行缩放
         endPoint=event->pos();
@@ -84,24 +133,6 @@ void QWChartView::keyPressEvent(QKeyEvent *event)
         QGraphicsView::keyPressEvent(event);
     }
 //    QGraphicsView::keyPressEvent(event);
-}
-
-QWChartView::QWChartView(QWidget *parent):QChartView(parent)
-{
-    this->setDragMode(QGraphicsView::RubberBandDrag);
-//    this->setRubberBand(QChartView::RectangleRubberBand);//设置为矩形选择方式
-//    this->setRubberBand(QChartView::VerticalRubberBand);
-//    this->setRubberBand(QChartView::HorizontalRubberBand);
-
-    this->setMouseTracking(true);//必须开启此功能
-    pressflg = 0;
-
-    qDebug()<<"6";
-}
-
-QWChartView::~QWChartView()
-{
-
 }
 
 

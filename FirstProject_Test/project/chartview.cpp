@@ -37,8 +37,8 @@ ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
     m_isTouching(false)
 {
-    //setRubberBand(QChartView::RectangleRubberBand);
-    setRubberBand(QChartView::HorizontalRubberBand);
+    setRubberBand(QChartView::RectangleRubberBand);
+    //setRubberBand(QChartView::HorizontalRubberBand);
     this->setMouseTracking(true);//必须开启此功能
 
 }

@@ -79,27 +79,27 @@ Chart::~Chart()
 //![1]
 bool Chart::sceneEvent(QEvent *event)
 {
-    if (event->type() == QEvent::Gesture)
-        return gestureEvent(static_cast<QGestureEvent *>(event));
+//    if (event->type() == QEvent::Gesture)
+//        return gestureEvent(static_cast<QGestureEvent *>(event));
 
     qDebug()<<"sceneEvent";
-    return QChart::event(event);
+    return 1;//QChart::event(event);
 }
 
 bool Chart::gestureEvent(QGestureEvent *event)
 {
-    if (QGesture *gesture = event->gesture(Qt::PanGesture)) {
-        QPanGesture *pan = static_cast<QPanGesture *>(gesture);
-        QChart::scroll(-(pan->delta().x()), pan->delta().y());
-    }
+//    if (QGesture *gesture = event->gesture(Qt::PanGesture)) {
+//        QPanGesture *pan = static_cast<QPanGesture *>(gesture);
+//        QChart::scroll(-(pan->delta().x()), pan->delta().y());
+//    }
 
-    if (QGesture *gesture = event->gesture(Qt::PinchGesture)) {
-        QPinchGesture *pinch = static_cast<QPinchGesture *>(gesture);
-        if (pinch->changeFlags() & QPinchGesture::ScaleFactorChanged)
-            QChart::zoom(pinch->scaleFactor());
+//    if (QGesture *gesture = event->gesture(Qt::PinchGesture)) {
+//        QPinchGesture *pinch = static_cast<QPinchGesture *>(gesture);
+//        if (pinch->changeFlags() & QPinchGesture::ScaleFactorChanged)
+//            QChart::zoom(pinch->scaleFactor());
 
-        qDebug()<<pinch->scaleFactor();
-    }
+//        qDebug()<<pinch->scaleFactor();
+//    }
     qDebug()<<"gesture";
 
     return true;
@@ -118,4 +118,5 @@ void Chart::handleTimeout()
     //scroll(x, 0);
     if (m_x == 100)
         m_timer.stop();
+    qDebug()<<"timer";
 }
