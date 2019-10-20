@@ -6,7 +6,12 @@
 void QWChartView::mousePressEvent(QMouseEvent *event)
 {//鼠标左键按下，记录beginPoint
     if (event->button()==Qt::LeftButton)
+    {
         beginPoint=event->pos();
+        pressflg = 1;
+    }
+
+    qDebug()<<"1";
     QChartView::mousePressEvent(event);
 }
 
@@ -14,6 +19,8 @@ void QWChartView::mouseMoveEvent(QMouseEvent *event)
 {//鼠标移动事件
     QPoint  point;
     point=event->pos();
+
+    qDebug()<<"2";
 
     emit mouseMovePoint(point);
     QChartView::mouseMoveEvent(event);
@@ -27,15 +34,24 @@ void QWChartView::mouseReleaseEvent(QMouseEvent *event)
         QRectF  rectF;
         rectF.setTopLeft(this->beginPoint);
         rectF.setBottomRight(this->endPoint);
-        this->chart()->zoomIn(rectF);
+        if(pressflg == 1)
+        {
+            this->chart()->zoomIn(rectF);
+        }
+        qDebug()<<"41";
+        qDebug()<<rectF;
     }
     else if (event->button()==Qt::RightButton)
         //this->chart()->zoomReset(); //鼠标右键释放，resetZoom
+        qDebug()<<"3";
+    qDebug()<<"4";
+    pressflg = 0;
     QChartView::mouseReleaseEvent(event);
 }
 
 void QWChartView::keyPressEvent(QKeyEvent *event)
 {//按键控制
+    qDebug()<<"5";
     switch (event->key()) {
     case Qt::Key_Plus:  //+
         chart()->zoom(1.2);
@@ -78,6 +94,9 @@ QWChartView::QWChartView(QWidget *parent):QChartView(parent)
 //    this->setRubberBand(QChartView::HorizontalRubberBand);
 
     this->setMouseTracking(true);//必须开启此功能
+    pressflg = 0;
+
+    qDebug()<<"6";
 }
 
 QWChartView::~QWChartView()
@@ -97,6 +116,8 @@ void QWChartView::mouseDoubleClickEvent(QMouseEvent *event)
     {
         // 设置为纵向reset, 横向不变
     }
+
+    qDebug()<<"8";
 //    if (event->buttons() & Qt::LeftButton)
 //        chart()->zoom(2.0);
 //    else if (event->buttons() & Qt::RightButton)
@@ -109,6 +130,7 @@ void QWChartView::wheelEvent(QWheelEvent *event)
     assert(event);
     //chart()->zoomReset();
     qDebug()<<event->delta();
+    qDebug()<<"9";
 
     if (event->orientation() == Qt::Vertical) {
         if (event->modifiers() & Qt::ControlModifier) {

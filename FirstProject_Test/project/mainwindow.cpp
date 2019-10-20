@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chart->addSeries(series0);
     chart->addSeries(series1);
 
-
+    //connect(series0, &QLineSeries::pressed, ui->gv_tab3, &QWChartView::mousePressEvent);
 
 
 //    QLineSeries *series100[100];
