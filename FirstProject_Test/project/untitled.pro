@@ -36,6 +36,7 @@ LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lCont
 
 
 SOURCES += \
+        callout.cpp \
         chart.cpp \
         chartview.cpp \
         main.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
         qwchartview.cpp
 
 HEADERS += \
+    callout.h \
     chart.h \
     chartview.h \
         mainwindow.h \

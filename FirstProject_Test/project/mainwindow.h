@@ -39,6 +39,8 @@
 
 #include "chart.h"
 #include "chartview.h"
+#include "callout.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -54,6 +56,8 @@ public:
 
 //private:
     Ui::MainWindow *ui;
+
+    //在tab3上
     QChartView *chartView;
     QChart *chart;
     QLineSeries *series0;
@@ -63,22 +67,36 @@ public:
     QLabel  *labXYValue; //状态栏显示文字标签
 
     bool    openTextByStream(const QString& aFileName);
-
     bool    openTextDATA_ByStream(const QString &aFileName);
 
+
+
+    // 在tab4上
     Chart *m_chart;
     QList<QLineSeries *> m_series;
     //QLineSeries *m_series;
 
     ChartView *m_chartView;
 
+
+    // 在tab3上
+    QGraphicsSimpleTextItem *m_coordX;
+    QGraphicsSimpleTextItem *m_coordY;
+
+    Callout *m_tooltip;
+    QList<Callout *> m_callouts;
+
+
 private slots:
+    // 在tab1上
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
     void on_pb_receive_clicked();
     void on_pb_send_clicked();
     void on_pb_closecan_clicked();
+
+    // 在tab3上
     void on_pb_addchart_clicked();
     void on_pb_addchart2_clicked();
     void on_pb_tab3_1_clicked();
@@ -93,18 +111,23 @@ private slots:
 
     void on_actZoomOut_triggered(); //工具栏按钮，缩小
 
-
     void on_actOpen_TextStream_triggered();
 
     void on_pb_cv_clicked();
 	
+    // 在tab4上
 	void addSeries();
     void removeSeries();
     void connectMarkers();
     void disconnectMarkers();
 
     void handleMarkerClicked();
-	
+
+    // 在tab3上
+    void keepCallout();
+    void tooltip(QPointF point, bool state);
+
+
 };
 
 #endif // MAINWINDOW_H

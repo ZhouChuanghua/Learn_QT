@@ -3,6 +3,10 @@
 
 
 #include    <QtCharts>  //必须这么设置
+#include "callout.h"
+
+
+
 QT_CHARTS_USE_NAMESPACE     //必须这么设置
 
 
@@ -10,7 +14,7 @@ class QWChartView : public QChartView
 {
     Q_OBJECT
 
-private:
+public:
     QPoint  beginPoint; //选择矩形区的起点
     QPoint  endPoint;  //选择矩形区的终点
     int pressflg;       // 避免点击到lineseries上面之后, 无法产生chart::press事件, 造成缩放错误.
@@ -19,6 +23,8 @@ private:
 
     int xOld;
     int yOld;
+
+
 
 protected:
 
@@ -38,6 +44,8 @@ public:
 
     explicit QWChartView(QWidget *parent = 0);
     ~QWChartView();
+
+
 
 signals:
     void mouseMovePoint(QPoint point); //鼠标移动信号，在mouseMoveEvent()事件中触发

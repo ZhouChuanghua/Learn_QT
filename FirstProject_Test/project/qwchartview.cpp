@@ -2,9 +2,10 @@
 
 #include    <QChartView>
 #include <QtDebug>
+#include "callout.h"
 
-
-QWChartView::QWChartView(QWidget *parent):QChartView(parent)
+QWChartView::QWChartView(QWidget *parent)
+    : QChartView(parent)
 {
     this->setDragMode(QGraphicsView::RubberBandDrag);
 //    this->setRubberBand(QChartView::RectangleRubberBand);//设置为矩形选择方式
@@ -182,3 +183,7 @@ void QWChartView::wheelEvent(QWheelEvent *event)
         chart()->zoomReset();
     }
 }
+
+
+
+
