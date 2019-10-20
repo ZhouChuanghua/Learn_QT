@@ -36,11 +36,15 @@ LIBS += -LC:/Users/zhwsd/Desktop/work/Learn_QT/FirstProject_Test/project/ -lCont
 
 
 SOURCES += \
+        chart.cpp \
+        chartview.cpp \
         main.cpp \
         mainwindow.cpp \
         qwchartview.cpp
 
 HEADERS += \
+    chart.h \
+    chartview.h \
         mainwindow.h \
     ControlCAN.h \
     qwchartview.h

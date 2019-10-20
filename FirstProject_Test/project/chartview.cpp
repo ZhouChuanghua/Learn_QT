@@ -34,7 +34,8 @@ ChartView::ChartView(QChart *chart, QWidget *parent) :
     QChartView(chart, parent),
     m_isTouching(false)
 {
-    setRubberBand(QChartView::RectangleRubberBand);
+    //setRubberBand(QChartView::RectangleRubberBand);
+    setRubberBand(QChartView::HorizontalRubberBand);
 }
 
 bool ChartView::viewportEvent(QEvent *event)

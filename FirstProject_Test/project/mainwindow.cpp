@@ -3,8 +3,8 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts>
-//#include "chart.h"
-//#include "chartview.h"
+#include "chart.h"
+#include "chartview.h"
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QtMath>
 #include <QtCharts/QValueAxis>
@@ -81,7 +81,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //connect(series0, &QLineSeries::pressed, ui->gv_tab3, &QWChartView::mousePressEvent);
 
-
+    m_chart = new Chart();
+    m_chartView = new ChartView(m_chart, ui->tab_4);
+    ui->gridLayout_2->addWidget(m_chartView, 0, 0, 1, 1);
 //    QLineSeries *series100[100];
 //    for(int i = 0; i < 100; i++)
 //    {
@@ -491,6 +493,10 @@ bool MainWindow::openTextDATA_ByStream(const QString &aFileName)
 
     series2->setUseOpenGL(true);
     chart->addSeries(series2);
+
+    m_series = new QLineSeries();
+    m_series = series2;
+    m_chart->addSeries(m_series);
 
     return  true;
 }

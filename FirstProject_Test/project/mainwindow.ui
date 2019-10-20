@@ -46,8 +46,8 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
        <bool>true</bool>
@@ -425,6 +425,18 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="title">
+        <string>tab4</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2"/>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -498,7 +510,7 @@
   <customwidget>
    <class>QWChartView</class>
    <extends>QGraphicsView</extends>
-   <header location="global">qwchartview.h</header>
+   <header>qwchartview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

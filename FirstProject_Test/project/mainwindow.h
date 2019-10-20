@@ -37,6 +37,8 @@
 #include <QtWidgets/QApplication>
 #include <QtCharts/QValueAxis>
 
+#include "chart.h"
+#include "chartview.h"
 
 namespace Ui {
 class MainWindow;
@@ -64,6 +66,11 @@ public:
 
     bool    openTextDATA_ByStream(const QString &aFileName);
 
+    Chart *m_chart;
+    //QList<QLineSeries *> m_series;
+    QLineSeries *m_series;
+
+    ChartView *m_chartView;
 
 private slots:
     void on_pushButton_clicked();
