@@ -302,7 +302,7 @@ void MainWindow::on_pb_tab3_1_clicked()
 
     //创建坐标轴
         QValueAxis *axisX = new QValueAxis; //X 轴
-        axisX->setRange(0, 10); //设置坐标轴范围
+        axisX->setRange(-50, 50); //设置坐标轴范围
     //    axisX->setLabelFormat("%.1f"); //标签格式
     //    axisX->setTickCount(11); //主分隔个数
     //    axisX->setMinorTickCount(4);
@@ -320,6 +320,8 @@ void MainWindow::on_pb_tab3_1_clicked()
         chart->setAxisX(axisX, series0); //为序列设置坐标轴
         chart->setAxisY(axisY, series0); //
 
+        axisX->setRange(-10, 50); //设置坐标轴范围
+        axisY->setRange(-2, 2);
         chart->setAxisX(axisX, series1); //为序列设置坐标轴
         chart->setAxisY(axisY, series1); //
 
@@ -694,3 +696,8 @@ void MainWindow::tooltip(QPointF point, bool state)
     }
 }
 
+
+void MainWindow::on_pb_enlargeview_clicked()
+{
+    //qDebug()<<chart->axisX()->setRange();
+}

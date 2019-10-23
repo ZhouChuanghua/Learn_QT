@@ -128,6 +128,7 @@ private slots:
     void tooltip(QPointF point, bool state);
 
 
+    void on_pb_enlargeview_clicked();
 };
 
 #endif // MAINWINDOW_H

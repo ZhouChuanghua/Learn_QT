@@ -5,7 +5,10 @@
 #include "callout.h"
 
 QWChartView::QWChartView(QWidget *parent)
-    : QChartView(parent)
+    : QChartView(parent),
+      isClicking(0),
+      xOld(0),
+      yOld(0)
 {
     this->setDragMode(QGraphicsView::RubberBandDrag);
 //    this->setRubberBand(QChartView::RectangleRubberBand);//设置为矩形选择方式
@@ -16,6 +19,7 @@ QWChartView::QWChartView(QWidget *parent)
     pressflg = 0;
 
     qDebug()<<"6";
+    qDebug()<<xOld;
 }
 
 QWChartView::~QWChartView()
@@ -60,6 +64,8 @@ void QWChartView::mouseMoveEvent(QMouseEvent *event)
 
         xOld = event->x();
         yOld = event->y();
+
+        qDebug()<<"movingchart";
 
         return;
     }
@@ -164,19 +170,40 @@ void QWChartView::wheelEvent(QWheelEvent *event)
     qDebug()<<event->delta();
     qDebug()<<"9";
 
-    if (event->orientation() == Qt::Vertical) {
-        if (event->modifiers() & Qt::ControlModifier) {
+    if (event->orientation() == Qt::Vertical)
+    {
+        if (event->modifiers() & Qt::ControlModifier)
+        {
             // Vertical scrolling with the control key pressed
             // is intrepretted as vertical scrolling
             //chart()->set_v_offset(-chart()->owner_visual_v_offset() -
             //   (event->delta() * height()) / (8 * 120));
             chart()->zoomReset();
-        } else {
+        }
+        else
+        {
+            QValueAxis *axisYY = (QValueAxis*)(chart()->axisY());//父类转子类
+            QVariant min = axisYY->min();
+            QVariant max = axisYY->max();
             // Vertical scrolling is interpreted as zooming in/out
             //chart()->zoom(2.0);
             chart()->zoom(1 + 0.2*(event->delta() / abs(event->delta())));
+
+            QRectF  rectF(0,1,2,2);
+            //rectF.setTopLeft(this->beginPoint);
+            //rectF.setBottomRight(this->beginPoint);
+            //chart()->setPlotArea(rectF);
+            //rectF = chart->axisX();
+
+
+            chart()->axisY()->setRange(min, max);
+
+            //chart()->axes().
+            qDebug()<<(chart()->axisX());
         }
-    } else if (event->orientation() == Qt::Horizontal) {
+    }
+    else if (event->orientation() == Qt::Horizontal)
+    {
         // Horizontal scrolling is interpreted as moving left/right
         //chart()->set_scale_offset(chart()->scale(),
         //    event->delta() * chart()->scale() + chart()->offset());
