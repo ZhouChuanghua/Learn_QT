@@ -153,6 +153,8 @@ void QWChartView::mouseDoubleClickEvent(QMouseEvent *event)
     else if(event->button()==Qt::RightButton)
     {
         // 设置为纵向reset, 横向不变
+
+
     }
 
     qDebug()<<"8";
@@ -178,7 +180,13 @@ void QWChartView::wheelEvent(QWheelEvent *event)
             // is intrepretted as vertical scrolling
             //chart()->set_v_offset(-chart()->owner_visual_v_offset() -
             //   (event->delta() * height()) / (8 * 120));
-            chart()->zoomReset();
+            QValueAxis *axisXX = (QValueAxis*)(chart()->axisX());//父类转子类
+            QVariant min = axisXX->min();
+            QVariant max = axisXX->max();
+            // Vertical scrolling is interpreted as zooming in/out
+            //chart()->zoom(2.0);
+            chart()->zoom(1 + 0.2*(event->delta() / abs(event->delta())));
+            chart()->axisX()->setRange(min, max);
         }
         else
         {

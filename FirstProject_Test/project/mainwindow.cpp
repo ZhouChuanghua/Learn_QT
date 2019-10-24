@@ -310,6 +310,8 @@ void MainWindow::on_pb_tab3_1_clicked()
     //    axisX->setGridLineVisible(false);
 
         QValueAxis *axisY = new QValueAxis; //Y 轴
+        QValueAxis *axisY2 = new QValueAxis; //Y 轴
+
         axisY->setRange(-2, 2);
         axisY->setTitleText("value");
     //    axisY->setTickCount(5);
@@ -321,9 +323,11 @@ void MainWindow::on_pb_tab3_1_clicked()
         chart->setAxisY(axisY, series0); //
 
         axisX->setRange(-10, 50); //设置坐标轴范围
-        axisY->setRange(-2, 2);
+        axisY2->setRange(-11, 11);
         chart->setAxisX(axisX, series1); //为序列设置坐标轴
-        chart->setAxisY(axisY, series1); //
+        chart->setAxisY(axisY2, series1); //
+
+        axisY2->setRange(-3, 22);
 
         foreach (QLegendMarker* marker, chart->legend()->markers()) {
             QObject::disconnect(marker, SIGNAL(clicked()), this, SLOT(on_LegendMarkerClicked()));
