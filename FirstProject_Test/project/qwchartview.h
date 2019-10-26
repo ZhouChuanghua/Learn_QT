@@ -25,6 +25,12 @@ public:
     int yOld;
 
 
+    // 在tab3上
+    QGraphicsSimpleTextItem *m_coordX;
+    QGraphicsSimpleTextItem *m_coordY;
+
+    Callout *m_tooltip;
+    QList<Callout *> m_callouts;
 
 protected:
 
@@ -44,6 +50,12 @@ public:
 
     explicit QWChartView(QWidget *parent = 0);
     ~QWChartView();
+
+public slots:
+
+    // 在tab3上
+    void keepCallout();
+    void tooltip(QPointF point, bool state);
 
 
 

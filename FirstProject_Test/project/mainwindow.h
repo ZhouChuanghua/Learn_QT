@@ -79,12 +79,7 @@ public:
     ChartView *m_chartView;
 
 
-    // 在tab3上
-    QGraphicsSimpleTextItem *m_coordX;
-    QGraphicsSimpleTextItem *m_coordY;
 
-    Callout *m_tooltip;
-    QList<Callout *> m_callouts;
 
 
 private slots:
@@ -122,10 +117,6 @@ private slots:
     void disconnectMarkers();
 
     void handleMarkerClicked();
-
-    // 在tab3上
-    void keepCallout();
-    void tooltip(QPointF point, bool state);
 
 
     void on_pb_enlargeview_clicked();

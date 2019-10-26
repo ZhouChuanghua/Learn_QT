@@ -51,10 +51,7 @@ QT_CHARTS_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    m_coordX(0),
-    m_coordY(0),
-    m_tooltip(0)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -82,15 +79,10 @@ MainWindow::MainWindow(QWidget *parent) :
     chart->addSeries(series0);
     chart->addSeries(series1);
 
-    m_coordX = new QGraphicsSimpleTextItem(chart);
-    m_coordX->setPos(chart->size().width()/2 - 50, chart->size().height());
-    m_coordX->setText("X: ");
-    m_coordY = new QGraphicsSimpleTextItem(chart);
-    m_coordY->setPos(chart->size().width()/2 + 50, chart->size().height());
-    m_coordY->setText("Y: ");
 
-    connect(series0, &QLineSeries::clicked, this, &MainWindow::keepCallout);
-    connect(series0, &QLineSeries::hovered, this, &MainWindow::tooltip);
+
+    connect(series0, &QLineSeries::clicked, ui->gv_tab3, &QWChartView::keepCallout);
+    connect(series0, &QLineSeries::hovered, ui->gv_tab3, &QWChartView::tooltip);
 
     //connect(series1, &QSplineSeries::clicked, ui->gv_tab3, &QWChartView::keepCallout);
     //connect(series1, &QSplineSeries::hovered, ui->gv_tab3, &QWChartView::tooltip);
@@ -672,31 +664,6 @@ void MainWindow::handleMarkerClicked()
             qDebug() << "Unknown marker type";
             break;
         }
-    }
-}
-
-
-
-void MainWindow::keepCallout()
-{
-    m_callouts.append(m_tooltip);
-    m_tooltip = new Callout(chart);
-}
-
-void MainWindow::tooltip(QPointF point, bool state)
-{
-    qDebug()<<"tooltip";
-    if (m_tooltip == 0)
-        m_tooltip = new Callout(chart);
-
-    if (state) {
-        m_tooltip->setText(QString("X: %1 \nY: %2 ").arg(point.x()).arg(point.y()));
-        m_tooltip->setAnchor(point);
-        m_tooltip->setZValue(11);
-        m_tooltip->updateGeometry();
-        m_tooltip->show();
-    } else {
-        m_tooltip->hide();
     }
 }
 

@@ -8,7 +8,10 @@ QWChartView::QWChartView(QWidget *parent)
     : QChartView(parent),
       isClicking(0),
       xOld(0),
-      yOld(0)
+      yOld(0),
+      m_coordX(0),
+      m_coordY(0),
+      m_tooltip(0)
 {
     this->setDragMode(QGraphicsView::RubberBandDrag);
 //    this->setRubberBand(QChartView::RectangleRubberBand);//设置为矩形选择方式
@@ -20,6 +23,13 @@ QWChartView::QWChartView(QWidget *parent)
 
     qDebug()<<"6";
     qDebug()<<xOld;
+
+    m_coordX = new QGraphicsSimpleTextItem(chart());
+    m_coordX->setPos(chart()->size().width()/2 - 50, chart()->size().height());
+    m_coordX->setText("X: ");
+    m_coordY = new QGraphicsSimpleTextItem(chart());
+    m_coordY->setPos(chart()->size().width()/2 + 50, chart()->size().height());
+    m_coordY->setText("Y: ");
 }
 
 QWChartView::~QWChartView()
@@ -220,5 +230,30 @@ void QWChartView::wheelEvent(QWheelEvent *event)
 }
 
 
+
+
+
+void QWChartView::keepCallout()
+{
+    m_callouts.append(m_tooltip);
+    m_tooltip = new Callout(chart());
+}
+
+void QWChartView::tooltip(QPointF point, bool state)
+{
+    qDebug()<<"tooltip";
+    if (m_tooltip == 0)
+        m_tooltip = new Callout(chart());
+
+    if (state) {
+        m_tooltip->setText(QString("X: %1 \nY: %2 ").arg(point.x()).arg(point.y()));
+        m_tooltip->setAnchor(point);
+        m_tooltip->setZValue(11);
+        m_tooltip->updateGeometry();
+        m_tooltip->show();
+    } else {
+        m_tooltip->hide();
+    }
+}
 
 
